@@ -1,0 +1,3 @@
+processImageLine - had a private variable
+getImages - relied on the above
+setAlpha - ""

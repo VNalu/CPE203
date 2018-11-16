@@ -1,0 +1,5 @@
+I moved all the methods that created/editted used an entity/used entity as the main object for an entity in entity.
+I then moved variables used in those methods into the the same class.
+With the remaining methods I looked at what those editted/created/mostly relied on and put those and their variables in the corresponding classes.
+Also if a method contained key words that were also used in a class name, I put it there (within reason).
+Lastly, for the quakes, a quake is an event so the creation of an event I put in event scheduler.

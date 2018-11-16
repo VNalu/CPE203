@@ -1,0 +1,32 @@
+ {
+    "customer1": [
+        "session1",
+        "session2",
+        "session3
+    ],
+    "customer2": []
+}
+
+{
+    "session1": [
+        "view1",
+        "view2"
+    ],
+    "session1: []
+}
+
+
+
+
+{
+    "customer1": {
+        "session1": {
+            "views": ["product1", "product2"],
+            "buys": ["p1","p2"]
+        },
+        "session2
+    }
+    "customer2": {
+        
+    }
+}
