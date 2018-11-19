@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.Optional;
 import java.util.Random;
 
-public class MinerNotFull extends Miner {
+public class MinerNotFull extends MovingEntity {
 
 public MinerNotFull(String id, Point position, List<PImage> images,
  int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod) {
@@ -36,7 +36,7 @@ public boolean moveToNotFull(WorldModel world, Entity target, EventScheduler sch
        return true;
     }
     else {
-       Point nextPos = nextPositionMiner(world, target.getPosition());
+       Point nextPos = nextPosition(world, target.getPosition());
 
        if (!this.getPosition().equals(nextPos)) {
           Optional<Entity> occupant = world.getOccupant(nextPos);

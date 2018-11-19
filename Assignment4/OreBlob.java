@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.Optional;
 import java.util.Random;
 
-public class OreBlob extends ActiveEntity {
+public class OreBlob extends MovingEntity {
 
     public static final String BLOB_ID_SUFFIX = " -- blob";
     public static final int BLOB_PERIOD_SCALE = 4;
@@ -45,7 +45,7 @@ public class OreBlob extends ActiveEntity {
        return true;
     }
     else {
-       Point nextPos = nextPositionOreBlob(world, target.getPosition());
+       Point nextPos = nextPosition(world, target.getPosition());
  
        if (!this.getPosition().equals(nextPos)) {
           Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -57,30 +57,5 @@ public class OreBlob extends ActiveEntity {
        return false;
     }
  }
-
-
-    public Point nextPositionOreBlob(WorldModel world, Point destPos) {
-        // change to be like next miner po==
-        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-        Point newPos = new Point(this.getPosition().x + horiz,
-        this.getPosition().y);
-
-        Optional<Entity> occupant = world.getOccupant(newPos);
-
-        if (horiz == 0 || (occupant.isPresent()
-        && !(occupant.get() instanceof Ore)))
-        {
-            int vert = Integer.signum(destPos.y - this.getPosition().y);
-            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
-            occupant = world.getOccupant(newPos);
-
-            if (vert == 0 || (occupant.isPresent()
-            && !(occupant.get() instanceof Ore))) {
-                newPos = this.getPosition();
-            }
-        }
-
-        return newPos;
-    }
 
 }

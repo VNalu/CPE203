@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.Optional;
 import java.util.Random;
 
-final class MinerFull extends Miner {
+final class MinerFull extends MovingEntity {
 
     public MinerFull(String id, Point position, List<PImage> images, int resourceLimit,
     int resourceCount, int actionPeriod, int animationPeriod) {
@@ -46,7 +46,7 @@ final class MinerFull extends Miner {
             return true;
         }
         else { // Else move miner
-            Point nextPos = nextPositionMiner(world, target.getPosition());
+            Point nextPos = nextPosition(world, target.getPosition());
             if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
