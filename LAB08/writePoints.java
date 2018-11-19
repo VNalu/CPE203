@@ -1,65 +1,48 @@
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import processing.core.*;
+import java.util.List;
 
-public class writePoints extends PApplet {
 
-	public void settings() {
-    	size(500, 500);
-	}
-  
-	public void setup() {
-    	background(180);
-    	noLoop();
-  	}
+public class writePoints {
+    public static void main(String args[]) {        
+        try {
+            File fileIn = new File("initialPoints.txt");
+            File fileOut = new File("filteredPoints.txt");
+            Scanner sc = new Scanner(fileIn);
 
-    private static ArrayList<Point> processPoint() {
-
-        String fileInName = "initialPoints.txt";
-
-		double x, y, z;
-        ArrayList<Point> points = new ArrayList<>();
-        // read API docs more, processingPoint isn't part of PApplet
-        // so can't call Processing method loadStrings
-        // may have static version of method
-		String[] lines = loadStrings(fileInName);
-            
-        println("there are " + lines.length);
-        
-        for (int i=0; i < lines.length; i++){
-            if (lines[i].length() > 0 ) {
-                String[] rawPoint= lines[i].split(",");
-                x = Double.parseDouble(rawPoint[0]);
-                y = Double.parseDouble(rawPoint[1]);
-                z = Double.parseDouble(rawPoint[2]);
-                println("xy: " + x + " " + y);
-
-                Point newP = new Point(x, y, z);
-                points.add(newP);
+            ArrayList<String> lines = new ArrayList<>();
+            while(sc.hasNextLine()) {
+                String s = sc.nextLine();
+                lines.add(s);
             }
+            
+            PrintWriter printer = new PrintWriter(fileOut);
+            double x, y, z;
+            ArrayList<Point> points = new ArrayList<>();
+            printer.write("there are " + lines.size());
+            
+            for (int i=0; i < lines.size(); i++){
+                if (lines.get(i).length() > 0 ) {
+                    String[] rawPoint= lines.get(i).split(",");
+                    x = Double.parseDouble(rawPoint[0]);
+                    y = Double.parseDouble(rawPoint[1]);
+                    z = Double.parseDouble(rawPoint[2]);
+                    printer.write("xy: " + x + " " + y);
+
+                    Point newP = new Point(x, y, z);
+                    points.add(newP);
+                }
+            }
+
+            for (Point p : points){
+                printer.write("xy: " + p.getX() + " " + p.getY());
+            }
+            printer.close();
         }
-        return points;
-    }
-
-    // Takes fileOutName and writes already filtered points to file
-    private static void writeToFile(String[] args, ArrayList<Point> points) {
-
-        String fileOutName = args[1]; // "filteredPoints.txt"
-        PrintWriter fileOut = new PrintWriter(fileOutName);
-        for (Point p : points){
-			fileOut.println("xy: " + p.getX() + " " + p.getY());
+        catch(FileNotFoundException e) {
+            System.err.println("File not found. Please scan in new file.");
         }
-        fileOut.close();
-    }
 
-    public static void main(String[] args)
-    {
-        ArrayList<Point> unFilteredPoints = processPoint();
-        writeToFile(args, unFilteredPoints);
     }
 }
