@@ -39,14 +39,7 @@ public class drawPoints extends PApplet {
 			}
 		}
 
-		List<Point> filteredPoints = points.stream() 
-			.filter(p -> p.getZ() <= 2.0)
-			.map(p -> new Point(p.getX() / 2 - 150,
-								p.getY() / 2 - 37,
-								p.getZ()))
-			.collect(Collectors.toList());
-
-		for (Point p : filteredPoints) {
+		for (Point p : points) {
 			ellipse((int)(p.getX()), (int)(p.getY()), 1, 1);
 		}
 
