@@ -7,10 +7,20 @@ import java.util.Map;
 import java.util.Scanner;
 import processing.core.*;
 
-public class writePoints extends PApplet{
+public class writePoints extends PApplet {
 
-    private static ArrayList<Point> processPoint(String[] args) {
-        String fileInName = args[0]; // "initialPoints.txt"
+	public void settings() {
+    	size(500, 500);
+	}
+  
+	public void setup() {
+    	background(180);
+    	noLoop();
+  	}
+
+    private static ArrayList<Point> processPoint() {
+
+        String fileInName = "initialPoints.txt";
 
 		double x, y, z;
         ArrayList<Point> points = new ArrayList<>();
@@ -49,7 +59,7 @@ public class writePoints extends PApplet{
 
     public static void main(String[] args)
     {
-        ArrayList<Point> unFilteredPoints = processPoint(args);
+        ArrayList<Point> unFilteredPoints = processPoint();
         writeToFile(args, unFilteredPoints);
     }
 }
