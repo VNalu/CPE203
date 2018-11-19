@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 class SingleStepPathingStrategy implements PathingStrategy {
 
       public List<Point> computePath(Point start, Point end,
-            Predicate<Point> canPassThrough,
+            Predicate<Point> canPassThrough, // always going to be the same predicate
             BiPredicate<Point, Point> withinReach,
             Function<Point, Stream<Point>> potentialNeighbors) {
             /*

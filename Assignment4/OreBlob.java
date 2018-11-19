@@ -60,6 +60,7 @@ public class OreBlob extends ActiveEntity {
 
 
     public Point nextPositionOreBlob(WorldModel world, Point destPos) {
+        // change to be like next miner po==
         int horiz = Integer.signum(destPos.x - this.getPosition().x);
         Point newPos = new Point(this.getPosition().x + horiz,
         this.getPosition().y);

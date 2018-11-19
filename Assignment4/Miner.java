@@ -1,5 +1,9 @@
 import java.util.List;
 import processing.core.PImage;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public abstract class Miner extends ActiveEntity {
 
@@ -9,28 +13,19 @@ public abstract class Miner extends ActiveEntity {
     } 
 
     public Point nextPositionMiner(WorldModel world, Point destPos) {
-        // int horiz = Integer.signum(destPos.x - this.getPosition().x); // returns -1, 0, or 1
-        // Point newPos = new Point(this.getPosition().x + horiz,
-        //     this.getPosition().y);
-    
-        // if (horiz == 0 || world.isOccupied(newPos)) {
-        //     int vert = Integer.signum(destPos.y - this.getPosition().y); // returns -1, 0, or 1
-        //     newPos = new Point(this.getPosition().x,
-        //         this.getPosition().y + vert);
-    
-        //     if (vert == 0 || world.isOccupied(newPos)) {
-        //         newPos = this.getPosition();
-        //     }
-        // }
-    
-        // return newPos;
 
-        List<Point> pathPoints = SingleStepPathingStrategy.computePath(this.getPosition(), destPos,
-            Predicate<Point> canPassThrough,
-            BiPredicate<Point, Point> withinReach,
-            CARDINAL_NEIGHBORS);
+        SingleStepPathingStrategy ssps = new SingleStepPathingStrategy();
+
+        List<Point> pathPoints = ssps.computePath(this.getPosition(), destPos,
+            (p -> world.withinBounds(p) && !(world.isOccupied(p))),
+            ((p1, p2) -> p1.adjacent(p2)),
+            PathingStrategy.CARDINAL_NEIGHBORS);
         
-        return pathPoints[0];
+            if (pathPoints.isEmpty()){
+                return this.getPosition();
+            }
+            
+        return pathPoints.get(0);
     }
     
 }
