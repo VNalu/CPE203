@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.*;
+import java.util.function.*;
 
 
 public class writePoints {
@@ -27,11 +27,23 @@ public class writePoints {
                     x = Double.parseDouble(rawPoint[0]);
                     y = Double.parseDouble(rawPoint[1]);
                     z = Double.parseDouble(rawPoint[2]);
-                    printer.write(x + ", " + y + ", " + z + "\n");
+                    // printer.write(x + ", " + y + ", " + z + "\n");
 
                     Point newP = new Point(x, y, z);
                     points.add(newP);
                 }
+            }
+
+            List<Point> filteredPoints = points.stream() 
+            .filter(p -> p.getZ() <= 2.0)
+            .map(p -> new Point(p.getX() / 2 - 150,
+                                p.getY() / 2 - 37,
+                                p.getZ() / 2))
+            .collect(Collectors.toList());
+
+
+            for (Point fp : filteredPoints){
+                printer.write(fp.getX() + ", " + fp.getY() + ", " + fp.getZ() + "\n");
             }
 
             printer.close();

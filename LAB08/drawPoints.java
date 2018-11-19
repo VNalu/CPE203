@@ -22,7 +22,7 @@ public class drawPoints extends PApplet {
 		double x, y, z;
 		List<Point> points = new ArrayList<>(); // Filter this
 
-		String[] lines = loadStrings("initialPoints.txt");
+		String[] lines = loadStrings("filteredPoints.txt");
 
 		println("there are " + lines.length);
 
