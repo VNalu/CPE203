@@ -20,7 +20,6 @@ public class writePoints {
             PrintWriter printer = new PrintWriter(fileOut);
             double x, y, z;
             ArrayList<Point> points = new ArrayList<>();
-            printer.write("there are " + lines.size());
             
             for (int i=0; i < lines.size(); i++){
                 if (lines.get(i).length() > 0 ) {
@@ -28,16 +27,13 @@ public class writePoints {
                     x = Double.parseDouble(rawPoint[0]);
                     y = Double.parseDouble(rawPoint[1]);
                     z = Double.parseDouble(rawPoint[2]);
-                    printer.write("\n" + "xy: " + x + " " + y);
+                    printer.write(x + ", " + y + ", " + z + "\n");
 
                     Point newP = new Point(x, y, z);
                     points.add(newP);
                 }
             }
 
-            for (Point p : points){
-                printer.write("\n" + "xy: " + p.getX() + " " + p.getY());
-            }
             printer.close();
         }
         catch(FileNotFoundException e) {
