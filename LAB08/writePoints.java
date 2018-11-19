@@ -28,7 +28,7 @@ public class writePoints {
                     x = Double.parseDouble(rawPoint[0]);
                     y = Double.parseDouble(rawPoint[1]);
                     z = Double.parseDouble(rawPoint[2]);
-                    printer.write("xy: " + x + " " + y);
+                    printer.write("\n" + "xy: " + x + " " + y);
 
                     Point newP = new Point(x, y, z);
                     points.add(newP);
@@ -36,7 +36,7 @@ public class writePoints {
             }
 
             for (Point p : points){
-                printer.write("xy: " + p.getX() + " " + p.getY());
+                printer.write("\n" + "xy: " + p.getX() + " " + p.getY());
             }
             printer.close();
         }
