@@ -16,7 +16,7 @@ class AStarPathingStrategy implements PathingStrategy {
         totalPath.add(current);
 
         System.out.println(cameFrom + "\n");
-        while (true) {
+        while (cameFrom.get(current) != null) {
             Point parent = (cameFrom.get(current)).get((cameFrom.get(current)).size()-1);
             if (parent != null) {
                 // cameFrom.remove(current);
@@ -24,9 +24,6 @@ class AStarPathingStrategy implements PathingStrategy {
 
                 totalPath.add(0, parent);
                 current = parent;
-                if (cameFrom.get(current) == null) {
-                    break;
-                }
             }
         }
         System.out.println("Total Path returned: " + totalPath + "\n");
