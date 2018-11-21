@@ -51,7 +51,7 @@ public class Activity extends Action {
 
 	public Action createActivityAction(WorldModel world,
 	ImageStore imageStore) {
-		return new Activity((Entity)this.getEntity(), world, imageStore, 0);
+		return new Activity(this.getEntity(), world, imageStore, 0);
 	}
 
 }

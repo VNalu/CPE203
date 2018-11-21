@@ -15,9 +15,10 @@ public abstract class MovingEntity extends ActiveEntity {
     
     public Point nextPosition(WorldModel world, Point destPos) {
 
-        SingleStepPathingStrategy ssps = new SingleStepPathingStrategy();
+        // SingleStepPathingStrategy pathstrat = new SingleStepPathingStrategy();
+        AStarPathingStrategy pathstrat = new AStarPathingStrategy();
 
-        List<Point> pathPoints = ssps.computePath(this.getPosition(), destPos,
+        List<Point> pathPoints = pathstrat.computePath(this.getPosition(), destPos,
             (p -> world.withinBounds(p) && !(world.isOccupied(p))),
             ((p1, p2) -> p1.adjacent(p2)),
             PathingStrategy.CARDINAL_NEIGHBORS);

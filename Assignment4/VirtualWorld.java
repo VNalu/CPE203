@@ -15,10 +15,10 @@ public final class VirtualWorld
    public static final int WORLD_WIDTH_SCALE = 2;
    public static final int WORLD_HEIGHT_SCALE = 2;
 
-   public static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH;
-   public static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT;
-   public static final int WORLD_COLS = VIEW_COLS * WORLD_WIDTH_SCALE;
-   public static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE;
+   public static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH; // 640/32 = 20
+   public static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT; // 480/32 = 15
+   public static final int WORLD_COLS = VIEW_COLS * WORLD_WIDTH_SCALE; // 20*2 = 40
+   public static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE; // 15*2 = 30
 
    public static final String IMAGE_LIST_FILE_NAME = "imagelist";
    public static final String DEFAULT_IMAGE_NAME = "background_default";

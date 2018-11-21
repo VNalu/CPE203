@@ -2,6 +2,8 @@
 import java.util.List;
 import processing.core.PImage;
 import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 
 final class Point
 {
@@ -11,6 +13,12 @@ final class Point
    private final String QUAKE_ID = "quake";
    private final int QUAKE_ACTION_PERIOD = 1100;
    private final int QUAKE_ANIMATION_PERIOD = 100;
+
+   // Below Variables were added for A*
+   public int INFINITE = 2147483647;
+   private int g = INFINITE; // Distance from Start
+   private int h; // Heuristic Distance
+   private int f = INFINITE; // Total Distance
 
    public Point(int x, int y)
    {
@@ -50,7 +58,6 @@ final class Point
    public Obstacle createObstacle(String id, List<PImage> images)
    {
       return new Obstacle(id, this, images, 0, 0, 0, 0);
-      // return new Obstacle(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
    }
 
    public Ore createOre(String id, int actionPeriod,
@@ -59,17 +66,9 @@ final class Point
       return new Ore(id, this, images, 0, 0, actionPeriod, 0);
    }
 
-//    public OreBlob createOreBlob(String id,
-//       int actionPeriod, int animationPeriod, List<PImage> images)
-//    {
-//       return new OreBlob(id, this, images, 0, 0, actionPeriod, animationPeriod);
-//       // return new OreBlob(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
-// }
-
    public Quake createQuake(List<PImage> images)
    {
       return new Quake(QUAKE_ID, this, images, 0, 0, QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
-      // return new Quake(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
    }
 
    public Vein createVein(String id, int actionPeriod,
@@ -133,5 +132,42 @@ final class Point
          (this.y == p2.y && Math.abs(this.x - p2.x) == 1);
    }
 
+   // Functions Below were added for A*
+
+   public int getX() {
+      return x;
+   }
+
+   public int getY() {
+      return y;
+   }
+
+   public int getG() {
+      return g;
+   }
+
+   public void setG(int newG) {
+      this.g = newG;
+   }
+
+   public int getH() {
+      return h;
+   }
+
+   public void setH(int newH) {
+      this.h = newH;
+   }
+
+   public int getF() {
+      return f;
+   }
+
+   public void setF(int newF) {
+      this.f = newF;
+   }
+
+   public int calculateHeuristic(Point goal) { // Meant to be set to h
+      return Math.abs(goal.getY() - this.getY()) + Math.abs(goal.getX() - this.getX());
+   }
 
 }

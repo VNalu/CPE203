@@ -18,8 +18,8 @@ final class Background
    {
       if (this instanceof Background)
       {
-         return ((Background)this).images
-            .get(((Background)this).imageIndex);
+         return this.images
+            .get(this.imageIndex);
       }
       else
       {
