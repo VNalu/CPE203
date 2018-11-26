@@ -15,18 +15,15 @@ class AStarPathingStrategy implements PathingStrategy {
         ArrayList<Point> totalPath = new ArrayList<Point>();
         totalPath.add(current);
 
-        System.out.println(cameFrom + "\n");
+        // System.out.println(cameFrom + "\n");
         while (cameFrom.get(current) != null) {
             Point parent = (cameFrom.get(current)).get((cameFrom.get(current)).size()-1);
             if (parent != null) {
-                // cameFrom.remove(current);
-                // totalPath.add(current);
-
                 totalPath.add(0, parent);
                 current = parent;
             }
         }
-        System.out.println("Total Path returned: " + totalPath + "\n");
+        // System.out.println("Total Path returned: " + totalPath + "\n");
         totalPath.remove(0);
         return totalPath;
     }
@@ -74,8 +71,8 @@ class AStarPathingStrategy implements PathingStrategy {
         BiPredicate<Point, Point> withinReach,
         Function<Point, Stream<Point>> potentialNeighbors) {
         
-        // Prints goal's coordinates
-        System.out.println("Goal: " + end + "   Start: " + start);
+        // // Prints goal's coordinates
+        // System.out.println("Goal: " + end + "   Start: " + start);
 
         // The set of nodes already evaluated
         ArrayList<Point> closedSet = new ArrayList<Point>();
@@ -121,7 +118,6 @@ class AStarPathingStrategy implements PathingStrategy {
             for (Point neighbor : neighbors) {
 
                 if (getNeighbors(neighbor).contains(end)) {
-                    System.out.println("Being called from neighbor");
                     addToCameFromList(cameFrom, neighbor, current);
 
                     return reconstructPath(cameFrom, neighbor);

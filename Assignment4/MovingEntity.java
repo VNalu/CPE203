@@ -27,7 +27,7 @@ public abstract class MovingEntity extends ActiveEntity {
                 return this.getPosition();
             }
         
-        System.out.println("MOVING ENTITY FIRST STEP: " + pathPoints.get(0));
+        // System.out.println("MOVING ENTITY FIRST STEP: " + pathPoints.get(0));
         return pathPoints.get(0);
     }
 
