@@ -5,8 +5,6 @@ import java.util.Random;
 
 public class OreBlob extends MovingEntity {
 
-    public static final String BLOB_ID_SUFFIX = " -- blob";
-    public static final int BLOB_PERIOD_SCALE = 4;
 
     public static final String QUAKE_KEY = "quake";
     
