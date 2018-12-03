@@ -99,12 +99,12 @@ public class Lab09Tests
    // ---------------------------- Fuctionality Tests --------------------------------
       
    @Test
-   public void throwsNothing() throws ZeroRadiusException, NegativeRadiusException {
+   public void throwsNothing() {
       Circle c = new Circle(3);
    }
    
    @Test(expected = ZeroRadiusException.class)
-   public void throwsZeroRadiusException()  throws ZeroRadiusException, NegativeRadiusException
+   public void throwsZeroRadiusException()
    {
       Circle c = new Circle(0);
    }
