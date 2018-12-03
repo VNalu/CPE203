@@ -1,14 +1,14 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class writePoints {
     public static void main(String args[]) {        
         try {
-            File fileIn = new File("initialPoints.txt");
-            File fileOut = new File("filteredPoints.txt");
+            File fileIn = new File("initialPoints");
+            File fileOut = new File("filteredPoints");
             Scanner sc = new Scanner(fileIn);
 
             ArrayList<String> lines = new ArrayList<>();
@@ -20,6 +20,7 @@ public class writePoints {
             PrintWriter printer = new PrintWriter(fileOut);
             double x, y, z;
             ArrayList<Point> points = new ArrayList<>();
+            println("there are " + lines.size());
             
             for (int i=0; i < lines.size(); i++){
                 if (lines.get(i).length() > 0 ) {
@@ -27,25 +28,16 @@ public class writePoints {
                     x = Double.parseDouble(rawPoint[0]);
                     y = Double.parseDouble(rawPoint[1]);
                     z = Double.parseDouble(rawPoint[2]);
-                    // printer.write(x + ", " + y + ", " + z + "\n");
+                    println("xy: " + x + " " + y);
 
                     Point newP = new Point(x, y, z);
                     points.add(newP);
                 }
             }
 
-            List<Point> filteredPoints = points.stream() 
-            .filter(p -> p.getZ() <= 2.0)
-            .map(p -> new Point(p.getX() / 2 - 150,
-                                p.getY() / 2 - 37,
-                                p.getZ() / 2))
-            .collect(Collectors.toList());
-
-
-            for (Point fp : filteredPoints){
-                printer.write(fp.getX() + ", " + fp.getY() + ", " + fp.getZ() + "\n");
+            for (Point p : points){
+                printer.write("xy: " + p.getX() + " " + p.getY());
             }
-
             printer.close();
         }
         catch(FileNotFoundException e) {

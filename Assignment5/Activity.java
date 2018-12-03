@@ -26,6 +26,10 @@ public class Activity extends Action {
 			((MinerNotFull)(this.getEntity())).executeMinerNotFullActivity(this.getWorld(),
 			this.getImageStore(), scheduler);
 		}
+		else if (this.getEntity() instanceof Ghost) {
+			((Ghost)(this.getEntity())).executeGhostActivity(this.getWorld(),
+			this.getImageStore(), scheduler);
+		}
 		else if (this.getEntity() instanceof Ore) {
 			((Ore)(this.getEntity())).executeOreActivity(this.getWorld(), this.getImageStore(), scheduler);
 		}

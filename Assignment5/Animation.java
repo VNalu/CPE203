@@ -30,6 +30,12 @@ public class Animation extends Action {
 				((MinerNotFull)(this.getEntity())).getAnimationPeriod());
 			}
 
+			else if (this.getEntity() instanceof Ghost) {
+				scheduler.scheduleEvent(this.getEntity(),
+				createAnimationAction(Math.max(this.getRepeatCount() - 1, 0)),
+				((Ghost)(this.getEntity())).getAnimationPeriod());
+			}
+
 			else if (this.getEntity() instanceof Ore) {
 				scheduler.scheduleEvent(this.getEntity(),
 				createAnimationAction(Math.max(this.getRepeatCount() - 1, 0)),

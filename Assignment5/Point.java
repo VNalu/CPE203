@@ -101,6 +101,16 @@ final class Point
    }
 
 
+   public Ghost createGhost(String id, int resourceLimit,
+      int actionPeriod, int animationPeriod,
+      List<PImage> images)
+   {
+      return new Ghost(id, this, images,
+         resourceLimit, 0, actionPeriod, animationPeriod);
+   }
+
+
+
    // Calculates nearest entity from list using pythagorean theorem
    public Optional<Entity> nearestEntity(List<Entity> entities)
    {

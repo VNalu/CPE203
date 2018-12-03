@@ -22,7 +22,7 @@ public class drawPoints extends PApplet {
 		double x, y, z;
 		List<Point> points = new ArrayList<>(); // Filter this
 
-		String[] lines = loadStrings("filteredPoints.txt");
+		String[] lines = loadStrings("initialPoints.txt");
 
 		println("there are " + lines.length);
 
@@ -39,7 +39,14 @@ public class drawPoints extends PApplet {
 			}
 		}
 
-		for (Point p : points) {
+		List<Point> filteredPoints = points.stream() 
+			.filter(p -> p.getZ() <= 2.0)
+			.map(p -> new Point(p.getX() / 2 - 150,
+								p.getY() / 2 - 37,
+								p.getZ()))
+			.collect(Collectors.toList());
+
+		for (Point p : filteredPoints) {
 			ellipse((int)(p.getX()), (int)(p.getY()), 1, 1);
 		}
 

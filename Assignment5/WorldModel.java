@@ -52,6 +52,15 @@ final class WorldModel
    private final int ORE_REACH = 1;
    public final String ORE_KEY = "ore";
 
+   private final String GHOST_KEY = "ghost";
+   private final int GHOST_NUM_PROPERTIES = 7;
+   private final int GHOST_ID = 1;
+   private final int GHOST_COL = 2;
+   private final int GHOST_ROW = 3;
+   private final int GHOST_LIMIT = 4;
+   private final int GHOST_ACTION_PERIOD = 5;
+   private final int GHOST_ANIMATION_PERIOD = 6;
+
       public WorldModel(int numRows, int numCols, Background defaultBackground)
       {
             this.numRows = numRows;
@@ -100,6 +109,24 @@ final class WorldModel
             return properties.length == MINER_NUM_PROPERTIES;
       }
 
+
+      public boolean parseGhost(String [] properties,
+            ImageStore imageStore)
+      {
+            if (properties.length == GHOST_NUM_PROPERTIES)
+            {
+            Point pt = new Point(Integer.parseInt(properties[GHOST_COL]),
+                  Integer.parseInt(properties[GHOST_ROW]));
+            Entity entity = pt.createGhost(properties[GHOST_ID],
+                  Integer.parseInt(properties[GHOST_LIMIT]),
+                  Integer.parseInt(properties[GHOST_ACTION_PERIOD]),
+                  Integer.parseInt(properties[GHOST_ANIMATION_PERIOD]),
+                  imageStore.getImageList(GHOST_KEY));
+            tryAddEntity(entity);
+            }
+
+            return properties.length == GHOST_NUM_PROPERTIES;
+      }
 
 
       public boolean parseObstacle(String [] properties,
@@ -183,6 +210,8 @@ final class WorldModel
                         return parseSmith(properties, imageStore);
                   case VEIN_KEY:
                         return parseVein(properties, imageStore);
+                  case GHOST_KEY:
+                        return parseGhost(properties, imageStore);
                   }
             }
 

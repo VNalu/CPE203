@@ -54,7 +54,6 @@ final class Point
       return deltaX * deltaX + deltaY * deltaY;
    }
 
-
    public Obstacle createObstacle(String id, List<PImage> images)
    {
       return new Obstacle(id, this, images, 0, 0, 0, 0);
@@ -100,7 +99,7 @@ final class Point
          resourceLimit, 0, actionPeriod, animationPeriod);
    }
 
-
+   
    // Calculates nearest entity from list using pythagorean theorem
    public Optional<Entity> nearestEntity(List<Entity> entities)
    {

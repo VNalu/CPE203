@@ -140,7 +140,6 @@ class AStarPathingStrategy implements PathingStrategy {
             }
         }
 
-        System.out.println("Returns reconstructed list without goal end -> Something went wrong");
         return reconstructPath(cameFrom, end);
 
     }
