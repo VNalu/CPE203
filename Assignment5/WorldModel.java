@@ -96,7 +96,6 @@ final class WorldModel
       {
             if (properties.length == MINER_NUM_PROPERTIES)
             {
-                  System.out.println((String)properties[MINER_COL]);
 
 
             Point pt = new Point(Integer.parseInt(properties[MINER_COL]),
@@ -116,7 +115,6 @@ final class WorldModel
       public boolean parseGhost(String [] properties,
             ImageStore imageStore)
       {
-            System.out.println("in parse ghost");
             if (properties.length == GHOST_NUM_PROPERTIES)
             {
             Point pt = new Point(Integer.parseInt(properties[GHOST_COL]),

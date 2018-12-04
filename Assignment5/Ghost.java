@@ -15,28 +15,19 @@ public class Ghost extends MovingEntity {
 
     public void executeGhostActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         MinerFull miner = new MinerFull(this.getId(), this.getPosition(), this.getImages(), 0, 0, this.getActionPeriod(), 0);
-        MinerFull target;
+        MovingEntity target;
         try {
             target = (MinerFull)world.findNearest(this.getPosition(), miner).get();
         }
         catch (NoSuchElementException e) {
-            // Random r = new Random();
-            // int randPos = r.nextInt(4);
-            // if (randPos == 0){
-            //     this.getPosition().x += 1;
-            // }
-            // else if (randPos == 1){
-            //     this.getPosition().y -= 1;
-            // }
-            // else if (randPos == 2){
-            //     this.getPosition().x -= 1;
-            // }
-            // else if (randPos == 3){
-            //     this.getPosition().y += 1;
-            // }
-
-            // world.moveEntity(this, this.getPosition());
-            return;
+            try {
+                MinerNotFull minerN = new MinerNotFull(this.getId(), this.getPosition(), this.getImages(), 0, 0, this.getActionPeriod(), 0);
+                target = (MinerNotFull)world.findNearest(this.getPosition(), minerN).get();
+            }
+            catch (NoSuchElementException e2) {
+                world.removeEntity((Entity)this);
+                return;
+            }
         }
 
         long nextPeriod = this.getActionPeriod();
@@ -98,7 +89,7 @@ public class Ghost extends MovingEntity {
             g.scheduleActions(scheduler, world, imageStore);
         }
         catch (Exception e){
-            e.printStackTrace();
+            return;
         }
 
     }
