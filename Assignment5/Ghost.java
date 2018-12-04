@@ -20,22 +20,22 @@ public class Ghost extends MovingEntity {
             target = (MinerFull)world.findNearest(this.getPosition(), miner).get();
         }
         catch (NoSuchElementException e) {
-            Random r = new Random();
-            int randPos = r.nextInt(4);
-            if (randPos == 0){
-                this.getPosition().x += 1;
-            }
-            else if (randPos == 1){
-                this.getPosition().y -= 1;
-            }
-            else if (randPos == 2){
-                this.getPosition().x -= 1;
-            }
-            else if (randPos == 3){
-                this.getPosition().y += 1;
-            }
+            // Random r = new Random();
+            // int randPos = r.nextInt(4);
+            // if (randPos == 0){
+            //     this.getPosition().x += 1;
+            // }
+            // else if (randPos == 1){
+            //     this.getPosition().y -= 1;
+            // }
+            // else if (randPos == 2){
+            //     this.getPosition().x -= 1;
+            // }
+            // else if (randPos == 3){
+            //     this.getPosition().y += 1;
+            // }
 
-            world.moveEntity(this, this.getPosition());
+            // world.moveEntity(this, this.getPosition());
             return;
         }
 
