@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.Optional;
 import java.util.Random;
 
-final class Ghost extends MovingEntity {
+public class Ghost extends MovingEntity {
 
     public static final String QUAKE_KEY = "quake";
     
@@ -17,8 +17,6 @@ final class Ghost extends MovingEntity {
         Optional<Entity> target = world.findNearest(this.getPosition(), miner);
 
         long nextPeriod = this.getActionPeriod();
-
-        // add miner target
 
         if (target.isPresent()) {
             Point tgtPos = target.get().getPosition();
@@ -61,7 +59,7 @@ final class Ghost extends MovingEntity {
            }
            return false;
         }
-     }
+    }
 
 
 }

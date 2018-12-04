@@ -96,6 +96,9 @@ final class WorldModel
       {
             if (properties.length == MINER_NUM_PROPERTIES)
             {
+                  System.out.println((String)properties[MINER_COL]);
+
+
             Point pt = new Point(Integer.parseInt(properties[MINER_COL]),
                   Integer.parseInt(properties[MINER_ROW]));
             Entity entity = pt.createMinerNotFull(properties[MINER_ID],
@@ -113,6 +116,7 @@ final class WorldModel
       public boolean parseGhost(String [] properties,
             ImageStore imageStore)
       {
+            System.out.println("in parse ghost");
             if (properties.length == GHOST_NUM_PROPERTIES)
             {
             Point pt = new Point(Integer.parseInt(properties[GHOST_COL]),
@@ -195,7 +199,7 @@ final class WorldModel
       {
             String[] properties = line.split("\\s");
             if (properties.length > 0) {
-                  
+                  System.out.println("thing: " + properties[0]);
                   switch (properties[PROPERTY_KEY])
                   {
                   case BGND_KEY:

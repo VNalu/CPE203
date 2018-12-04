@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import processing.core.*;
+import processing.event.MouseEvent;
 
 public final class VirtualWorld
    extends PApplet
@@ -104,6 +105,33 @@ public final class VirtualWorld
          }
          view.shiftView(dx, dy);
       }
+   }
+
+   public void mouseClicked(MouseEvent mouseEvent) {
+      System.out.println(mouseEvent.getX()+", "+mouseEvent.getY());
+
+      int x = mouseEvent.getX() / TILE_WIDTH;
+      int y = mouseEvent.getY() / TILE_HEIGHT;
+      Point p = view.viewport.viewportToWorld(x, y);
+      world.setBackground(p, new Background("fire", imageStore.getImageList("fire")));
+      Point p2 = view.viewport.viewportToWorld(x-1, y);
+      world.setBackground(p2, new Background("fire", imageStore.getImageList("fire")));
+      Point p3 = view.viewport.viewportToWorld(x+1, y);
+      world.setBackground(p3, new Background("fire", imageStore.getImageList("fire")));
+      Point p4 = view.viewport.viewportToWorld(x, y-1);
+      world.setBackground(p4, new Background("fire", imageStore.getImageList("fire")));
+      Point p5 = view.viewport.viewportToWorld(x, y+1);
+      world.setBackground(p5, new Background("fire", imageStore.getImageList("fire")));
+      Point p6 = view.viewport.viewportToWorld(x+1, y+1);
+      world.setBackground(p6, new Background("fire", imageStore.getImageList("fire")));
+      Point p7 = view.viewport.viewportToWorld(x-1, y-1);
+      world.setBackground(p7, new Background("fire", imageStore.getImageList("fire")));
+      Point p8 = view.viewport.viewportToWorld(x+1, y-1);
+      world.setBackground(p8, new Background("fire", imageStore.getImageList("fire")));
+      Point p9 = view.viewport.viewportToWorld(x-1, y+1);
+      world.setBackground(p9, new Background("fire", imageStore.getImageList("fire")));
+
+      
    }
 
    public static Background createDefaultBackground(ImageStore imageStore)
