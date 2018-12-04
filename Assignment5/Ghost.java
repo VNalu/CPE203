@@ -2,6 +2,7 @@ import java.util.List;
 import processing.core.PImage;
 import java.util.Optional;
 import java.util.Random;
+import java.util.NoSuchElementException;
 
 public class Ghost extends MovingEntity {
 
@@ -13,35 +14,53 @@ public class Ghost extends MovingEntity {
     }
 
     public void executeGhostActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        MinerNotFull miner = new MinerNotFull(this.getId(), this.getPosition(), this.getImages(), 0, 0, this.getActionPeriod(), 0);
-        Optional<Entity> target = world.findNearest(this.getPosition(), miner);
+        MinerFull miner = new MinerFull(this.getId(), this.getPosition(), this.getImages(), 0, 0, this.getActionPeriod(), 0);
+        MinerFull target;
+        try {
+            target = (MinerFull)world.findNearest(this.getPosition(), miner).get();
+        }
+        catch (NoSuchElementException e) {
+            Random r = new Random();
+            int randPos = r.nextInt(4);
+            if (randPos == 0){
+                this.getPosition().x += 1;
+            }
+            else if (randPos == 1){
+                this.getPosition().y -= 1;
+            }
+            else if (randPos == 2){
+                this.getPosition().x -= 1;
+            }
+            else if (randPos == 3){
+                this.getPosition().y += 1;
+            }
+
+            world.moveEntity(this, this.getPosition());
+            return;
+        }
 
         long nextPeriod = this.getActionPeriod();
 
-        if (target.isPresent()) {
-            Point tgtPos = target.get().getPosition();
+        Point tgtPos = target.getPosition();
 
-            if (moveToGhost(world, target.get(), scheduler)) {
-                // make Miner disappear when ghost next to
-                ActiveEntity quake = tgtPos.createQuake(imageStore.getImageList(QUAKE_KEY));
+        if (moveToGhost(world, (Entity)target, scheduler)) {
+            // make Miner disappear when ghost next to
+            ActiveEntity quake = tgtPos.createQuake(imageStore.getImageList(QUAKE_KEY));
 
-                world.addEntity(quake);
-                nextPeriod += this.getActionPeriod();
-                quake.scheduleActions(scheduler, world, imageStore);
-            }
-            
+            world.addEntity((Entity)quake);
+            nextPeriod += this.getActionPeriod();
+            quake.scheduleActions(scheduler, world, imageStore);
         }
-        else {
-            Activity act = new Activity(this, world, imageStore, 0);
-            scheduler.scheduleEvent(this,
-              act.createActivityAction(world, imageStore),
-              this.getActionPeriod()); //or nextPeriod according to Miner
-        }
+
+        Activity act = new Activity(this, world, imageStore, 0);
+        scheduler.scheduleEvent(this,
+        act.createActivityAction(world, imageStore),
+        this.getActionPeriod());
+    
     }
 
 
     public boolean moveToGhost(WorldModel world, Entity target, EventScheduler scheduler) {
-    
         if (this.getPosition().adjacent(target.getPosition())) {
            world.removeEntity(target);
            scheduler.unscheduleAllEvents(target);
@@ -59,6 +78,29 @@ public class Ghost extends MovingEntity {
            }
            return false;
         }
+    }
+
+
+    public void transformToGhost(Point p, WorldModel world, EventScheduler scheduler, ImageStore imageStore)
+    {
+        try {
+            MinerFull miner = new MinerFull(this.getId(), this.getPosition(), this.getImages(), 0, 0, this.getActionPeriod(), 0);
+            MinerFull died = (MinerFull)world.findNearest(this.getPosition(), miner).get();
+
+            Entity ghost = (this.getPosition()).createGhost(this.getId(), this.resourceLimit,
+            this.getActionPeriod(), this.getAnimationPeriod(), this.getImages());
+
+            world.removeEntity(died);
+            scheduler.unscheduleAllEvents(this);
+
+            world.tryAddEntity(ghost);
+            ActiveEntity g = (ActiveEntity)ghost;
+            g.scheduleActions(scheduler, world, imageStore);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 

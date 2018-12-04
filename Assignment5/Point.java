@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 final class Point
 {
-   public final int x;
-   public final int y;
+   public int x;
+   public int y;
 
    private final String QUAKE_ID = "quake";
    private final int QUAKE_ACTION_PERIOD = 1100;

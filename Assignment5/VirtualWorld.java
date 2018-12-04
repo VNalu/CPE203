@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import processing.core.*;
 import processing.event.MouseEvent;
+import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 
 public final class VirtualWorld
    extends PApplet
@@ -108,7 +111,6 @@ public final class VirtualWorld
    }
 
    public void mouseClicked(MouseEvent mouseEvent) {
-      System.out.println(mouseEvent.getX()+", "+mouseEvent.getY());
 
       int x = mouseEvent.getX() / TILE_WIDTH;
       int y = mouseEvent.getY() / TILE_HEIGHT;
@@ -131,7 +133,8 @@ public final class VirtualWorld
       Point p9 = view.viewport.viewportToWorld(x-1, y+1);
       world.setBackground(p9, new Background("fire", imageStore.getImageList("fire")));
 
-      
+      Ghost g = new Ghost("id", p, imageStore.getImageList("ghost"), 0, 0, 0, 0);
+      g.transformToGhost(p, world, scheduler, imageStore);
    }
 
    public static Background createDefaultBackground(ImageStore imageStore)

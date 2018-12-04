@@ -199,7 +199,6 @@ final class WorldModel
       {
             String[] properties = line.split("\\s");
             if (properties.length > 0) {
-                  System.out.println("thing: " + properties[0]);
                   switch (properties[PROPERTY_KEY])
                   {
                   case BGND_KEY:
